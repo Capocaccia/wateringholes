@@ -1,51 +1,99 @@
 <template>
-  <div class="about">
+  <div class="register">
     <navigation></navigation>
-    <div>
-      <input type="text" placeholder="First Name" v-model="firstName">
-      <input type="text" placeholder="Last Name" v-model="lastName">
-      <input type="text" placeholder="Email Address" v-model="email">
-      <input type="checkbox" value="water" v-model="offerings.water">
-      <input type="checkbox" value="food" v-model="offerings.food">
-      <input type="checkbox" value="flat-repair" v-model="offerings.flatFix">
-      <button @click="submitRegistration">Submit</button>
+    <div class="form-container">
+
+      <div class="form">
+        <input class="form-field form-input" type="text" placeholder="First Name" v-model="firstName">
+        <input class="form-field form-input" type="text" placeholder="Last Name" v-model="lastName">
+        <input class="form-field form-input" type="text" placeholder="Email Address" v-model="email">
+        <input class="form-field form-input" type="text" placeholder="Address" v-model="address">
+        <input class="form-field form-input" type="text" placeholder="City" v-model="city">
+        <input class="form-field form-input" type="text" placeholder="State" v-model="state">
+        <input class="form-field form-input" type="text" placeholder="Zip Code" v-model="zip">
+        <div class="title">
+          What can you provide?:
+        </div>
+        <div class="checkbox-wrapper">
+          <input class="form-field form-checkbox" type="checkbox" value="water" v-model="water">
+          <p class="form-checkbox-label">
+            Water
+          </p>
+        </div>
+        <div class="checkbox-wrapper">
+          <input class="form-field form-checkbox" type="checkbox" value="food" v-model="food">
+          <p class="form-checkbox-label">
+            Food
+          </p>
+        </div>
+        <div class="checkbox-wrapper">
+          <input class="form-field form-checkbox" type="checkbox" value="flat-repair" v-model="flatFix">
+          <p class="form-checkbox-label">
+            Flat Repair
+          </p>
+        </div>
+        <button class="form-button" @click="submitRegistration">Submit</button>
+      </div>
     </div>
   </div>
 </template>
+
+<style lang="scss">
+  @import '../scss/components/registration';
+</style>
 
 <script>
     // @ is an alias to /src
     import navigation from '../components/nav'
     import app from '../firebaseConfig'
     let db = app.database();
+    import {gmapApi} from 'vue2-google-maps'
 
     export default {
         name: 'register',
         data() {
             return {
-                firstName: null,
-                lastName: null,
-                email: null,
-                offerings: {
-                    water: null,
-                    food: null,
-                    flatFix: null
-                }
+                firstName: 'Carter',
+                lastName: 'Capocaccia',
+                email: 'c@c.com',
+                address: '212 Ericson Road',
+                city: 'Cordova',
+                state: 'TN',
+                zip: '38018',
+                water: true,
+                food: false,
+                flatFix: true
             }
         },
         components: {
             navigation
         },
+        computed: {
+            google: gmapApi
+        },
         methods: {
             submitRegistration(){
-                db.ref('providers').set({
-                    firstName: this.firstName,
-                    lastName: this.lastName,
-                    email: this.email,
-                    offerings: {
-                        water: this.offerings.water,
-                        food: this.offerings.food,
-                        flatFix: this.offerings.flatFix
+                let geocoder = new this.google.maps.Geocoder();
+
+                let address = `${this.address} ${this.city} ${this.state} ${this.zip}`;
+
+                geocoder.geocode( { 'address': address}, (results, status) => {
+                    if (status === this.google.maps.GeocoderStatus.OK) {
+
+                        db.ref('providers').set({
+                            'firstName': this.firstName,
+                            'lastName': this.lastName,
+                            'email': this.email,
+                            'offers': {
+                                water: this.water,
+                                food: this.food,
+                                flatFix: this.flatFix
+                            },
+                            'coords': {
+                                lat: results[0].geometry.location.lat(),
+                                long: results[0].geometry.location.lng()
+                            }
+                        })
                     }
                 })
             }
