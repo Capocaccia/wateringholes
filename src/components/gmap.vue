@@ -6,29 +6,30 @@
             map-type-id="terrain"
             style="width: 100%; height: 1000px"
     >
-        <GmapMarker
-                :key="index"
-                v-for="(m, index) in markers"
-                :position="m.position"
-                :clickable="true"
-                :draggable="true"
-                @click="center=m.position"
-        />
+        <span v-if="markers">
+            <GmapMarker
+                    :key="index"
+                    v-for="(m, index) in markers"
+                    :position="m.position"
+                    :clickable="true"
+                    :draggable="true"
+                    @click="center=m.position"
+            />
+        </span>
+
     </GmapMap>
 </template>
 
 <script>
+    import app from '../firebaseConfig'
+    let db = app.database();
+    let providers = db.ref('providers')
+
     export default {
         name: "gmap",
         data() {
             return {
-                coords: null,
-                markers: [{
-                    position: {
-                        lat: 35.123706,
-                        lng: -89.7799694
-                    }
-                }],
+                coords: null
             }
         },
         components: {},
@@ -47,6 +48,16 @@
             }
         },
         computed: {
+            markers(){
+                let markers = [];
+                providers.on('value', (snapshot) => {
+                    snapshot.forEach((childSnap ) => {
+                        let val = childSnap.val()
+                        markers.push(val.coords)
+                    })
+                })
+                return markers
+            }
         },
         mounted(){
             this.currentLatLong()

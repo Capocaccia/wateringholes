@@ -80,7 +80,7 @@
                 geocoder.geocode( { 'address': address}, (results, status) => {
                     if (status === this.google.maps.GeocoderStatus.OK) {
 
-                        db.ref('providers').set({
+                        db.ref('providers').push({
                             'firstName': this.firstName,
                             'lastName': this.lastName,
                             'email': this.email,
@@ -91,7 +91,7 @@
                             },
                             'coords': {
                                 lat: results[0].geometry.location.lat(),
-                                long: results[0].geometry.location.lng()
+                                lng: results[0].geometry.location.lng()
                             }
                         })
                     }
