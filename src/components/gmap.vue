@@ -53,7 +53,12 @@
                 providers.on('value', (snapshot) => {
                     snapshot.forEach((childSnap ) => {
                         let val = childSnap.val()
-                        markers.push(val.coords)
+                        markers.push({
+                            position: {
+                                lat: val.coords.lat,
+                                lng: val.coords.lng
+                            }
+                        })
                     })
                 })
                 return markers
