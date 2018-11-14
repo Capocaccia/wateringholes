@@ -1,8 +1,8 @@
 <template>
     <div class="nav">
         <router-link class="link" to="/">Home</router-link>
-        <router-link class="link" to="/register">Register</router-link>
         <router-link class="link" to="/map">Map</router-link>
+        <router-link class="link" to="/register">Provide</router-link>
     </div>
 </template>
 

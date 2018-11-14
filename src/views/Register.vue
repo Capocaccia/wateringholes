@@ -1,39 +1,54 @@
 <template>
   <div class="register">
     <navigation></navigation>
-    <div class="form-container">
 
-      <div class="form">
-        <input class="form-field form-input" type="text" placeholder="First Name" v-model="firstName">
-        <input class="form-field form-input" type="text" placeholder="Last Name" v-model="lastName">
-        <input class="form-field form-input" type="text" placeholder="Email Address" v-model="email">
-        <input class="form-field form-input" type="text" placeholder="Address" v-model="address">
-        <input class="form-field form-input" type="text" placeholder="City" v-model="city">
-        <input class="form-field form-input" type="text" placeholder="State" v-model="state">
-        <input class="form-field form-input" type="text" placeholder="Zip Code" v-model="zip">
-        <div class="title">
-          What can you provide?:
+    <div class="container">
+      <div class="content form-container">
+        <h1 class="headline">
+          Become a provider today to receive your discount at all of our sponsors!
+        </h1>
+        <div class="form">
+          <div class="form-group">
+            <input class="form-field form-input" type="text" placeholder="First Name" v-model="firstName">
+            <input class="form-field form-input" type="text" placeholder="Last Name" v-model="lastName">
+            <input class="form-field form-input" type="text" placeholder="Email Address" v-model="email">
+          </div>
+          <div class="form-group">
+            <input class="form-input" type="text" placeholder="Street" v-model="address">
+            <input class="form-input" type="text" placeholder="City" v-model="city">
+            <input class="form-input" type="text" placeholder="State" v-model="state">
+            <input class="form-input" type="text" placeholder="Zip Code" v-model="zip">
+          </div>
+          <div class="form-group">
+            <div class="form-group-options">
+              <div class="form-group-options__title">
+                How can you help?
+              </div>
+              <div class="checkbox-wrapper">
+                <input class="form-field form-checkbox" type="checkbox" value="water" v-model="water">
+                <p class="form-checkbox-label">
+                  Water
+                </p>
+              </div>
+              <div class="checkbox-wrapper">
+                <input class="form-field form-checkbox" type="checkbox" value="nutrition" v-model="nutrition">
+                <p class="form-checkbox-label">
+                  Nutrition
+                </p>
+              </div>
+              <div class="checkbox-wrapper">
+                <input class="form-field form-checkbox" type="checkbox" value="tools" v-model="tools">
+                <p class="form-checkbox-label">
+                  Tools
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <button class="form-button" @click="submitRegistration">Submit</button>
         </div>
-        <div class="checkbox-wrapper">
-          <input class="form-field form-checkbox" type="checkbox" value="water" v-model="water">
-          <p class="form-checkbox-label">
-            Water
-          </p>
-        </div>
-        <div class="checkbox-wrapper">
-          <input class="form-field form-checkbox" type="checkbox" value="food" v-model="food">
-          <p class="form-checkbox-label">
-            Food
-          </p>
-        </div>
-        <div class="checkbox-wrapper">
-          <input class="form-field form-checkbox" type="checkbox" value="flat-repair" v-model="flatFix">
-          <p class="form-checkbox-label">
-            Flat Repair
-          </p>
-        </div>
-        <button class="form-button" @click="submitRegistration">Submit</button>
       </div>
+
     </div>
   </div>
 </template>
@@ -53,16 +68,16 @@
         name: 'register',
         data() {
             return {
-                firstName: 'Carter',
-                lastName: 'Capocaccia',
-                email: 'c@c.com',
-                address: '212 Ericson Road',
-                city: 'Cordova',
-                state: 'TN',
-                zip: '38018',
-                water: true,
-                food: false,
-                flatFix: true
+                firstName: null,
+                lastName: null,
+                email: null,
+                address: null,
+                city: null,
+                state: null,
+                zip: null,
+                water: false,
+                nutrition: false,
+                tools: false
             }
         },
         components: {
