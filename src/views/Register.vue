@@ -20,6 +20,9 @@
             <input class="form-input" type="text" placeholder="Zip Code" v-model="zip">
           </div>
           <div class="form-group">
+            <input class="form-input" type="text" placeholder="Notes (E.G. Hose on side of home.)" v-model="notes">
+          </div>
+          <div class="form-group">
             <div class="form-group-options">
               <div class="form-group-options__title">
                 How can you help?
@@ -77,7 +80,8 @@
                 zip: null,
                 water: false,
                 nutrition: false,
-                tools: false
+                tools: false,
+                notes: null
             }
         },
         components: {
@@ -104,6 +108,7 @@
                                 food: this.food,
                                 flatFix: this.flatFix
                             },
+                            'notes': this.notes,
                             'coords': {
                                 lat: results[0].geometry.location.lat(),
                                 lng: results[0].geometry.location.lng()
