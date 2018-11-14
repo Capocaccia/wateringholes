@@ -1,13 +1,14 @@
 <template>
     <div class="nav">
-        <div class="link">
-            <router-link to="/">Home</router-link>
-        </div>
-        <div class="link">
-            <router-link to="/register">Register</router-link>
-        </div>
+        <router-link class="link" to="/">Home</router-link>
+        <router-link class="link" to="/register">Register</router-link>
+        <router-link class="link" to="/map">Map</router-link>
     </div>
 </template>
+
+<style scoped lang="scss">
+    @import '../scss/components/nav';
+</style>
 
 <script>
     export default {
@@ -22,25 +23,3 @@
         computed: {}
     }
 </script>
-
-<style scoped lang="scss">
-
-    .nav {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 10vh;
-        background-color: rgba(0,0,0,0.2);
-        .link {
-            height: 100%;
-            a {
-                display: block;
-                color: white;
-                text-decoration: none;
-                height: 100%;
-            }
-        }
-    }
-
-</style>
