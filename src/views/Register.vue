@@ -5,7 +5,7 @@
     <div class="container">
       <div class="content form-container">
         <h1 class="headline">
-          Become a provider today to receive your discount at all of our sponsors!
+          Submit the form below to become a provider today and receive a discount at all of our sponsors!
         </h1>
         <div class="form">
           <div class="form-group">
